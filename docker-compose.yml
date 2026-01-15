@@ -1,0 +1,38 @@
+services:
+    vending-machine-mysql:
+        container_name: vending-machine-mysql
+        image: mysql:5.7
+        volumes:
+            -   mysql-data:/var/lib/mysql
+        environment:
+            MYSQL_USER: eharo
+            MYSQL_PASSWORD: erosharo5%
+            MYSQL_DATABASE: vending_machine
+            MYSQL_ROOT_PASSWORD: root
+        ports:
+            -   '3306:3306'
+        networks:
+            - vending-machine-network
+
+    vending-machine-php:
+        container_name: vending-machine-php
+        build:
+            context: .
+            dockerfile: ./environment/development/docker/php.Dockerfile
+        volumes:
+            - ./:/var/www/html
+            - ./environment/development/xdebug.ini:/usr/local/etc/php/xdebug.ini
+        working_dir: /var/www/html
+        environment:
+            APP_ENV: dev
+            XDEBUG_CLIENT_HOST: host.docker.internal
+            XDEBUG_CLIENT_PORT: 9003
+        networks:
+            - vending-machine-network
+
+networks:
+    vending-machine-network:
+        driver: bridge
+
+volumes:
+    mysql-data:

@@ -22,13 +22,7 @@ final class Version20260115123808 extends AbstractMigration
         $this->addSql('
             CREATE TABLE IF NOT EXISTS currency_denominations (
                 id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-                currency_type_id INT NOT NULL,
-                value_in_cents INT NOT NULL,
-                CONSTRAINT FK_currency_denominations_currency_types
-                    FOREIGN KEY (currency_type_id)
-                    REFERENCES currency_types(id)
-                    ON DELETE CASCADE
-                    ON UPDATE CASCADE
+                value_in_cents INT NOT NULL
             )
         ');
     }

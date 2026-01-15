@@ -20,27 +20,41 @@ final class Version20260115124142 extends AbstractMigration
     public function up(Schema $schema): void
     {
         $this->addSql('
-            CREATE TABLE IF NOT EXISTS inserted_currencies (
+            CREATE TABLE IF NOT EXISTS payment_sessions (
                 id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
                 vending_machine_id INT NOT NULL,
-                denomination_id INT NOT NULL,
-                amount INT NOT NULL,
-                CONSTRAINT FK_inserted_currencies_vending_machines
+                CONSTRAINT FK_payment_sessions_vending_machines
                     FOREIGN KEY (vending_machine_id)
                     REFERENCES vending_machines(id)
                     ON DELETE CASCADE
+                    ON UPDATE CASCADE
+            )
+        ');
+
+        $this->addSql('
+            CREATE TABLE IF NOT EXISTS payment_session_currencies (
+                id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+                payment_session_id INT NOT NULL,
+                denomination_id INT NOT NULL,
+                amount INT NOT NULL,
+                CONSTRAINT FK_payment_session_currencies_payment_sessions
+                    FOREIGN KEY (payment_session_id)
+                    REFERENCES payment_sessions(id)
+                    ON DELETE CASCADE
                     ON UPDATE CASCADE,
-                CONSTRAINT FK_inserted_currencies_currency_denominations
+                CONSTRAINT FK_payment_session_currencies_currency_denominations
                     FOREIGN KEY (denomination_id)
                     REFERENCES currency_denominations(id)
                     ON DELETE CASCADE
-                    ON UPDATE CASCADE
+                    ON UPDATE CASCADE,
+                    INDEX idx_payment_session_id (payment_session_id)
             )
         ');
     }
 
     public function down(Schema $schema): void
     {
-        $this->addSql('DROP TABLE IF EXISTS inserted_currencies');
+        $this->addSql('DROP TABLE IF EXISTS payment_session_currencies');
+        $this->addSql('DROP TABLE IF EXISTS payment_sessions');
     }
 }

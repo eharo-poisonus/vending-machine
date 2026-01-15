@@ -9,10 +9,13 @@
         "ext-iconv": "*",
         "doctrine/migrations": "^3.9",
         "doctrine/orm": "^3.6",
+        "lambdish/phunctional": "^2.1",
+        "ramsey/uuid": "^4.9",
         "symfony/console": "8.0.*",
         "symfony/dotenv": "8.0.*",
         "symfony/flex": "^2",
         "symfony/framework-bundle": "8.0.*",
+        "symfony/messenger": "8.0.*",
         "symfony/runtime": "8.0.*",
         "symfony/yaml": "8.0.*"
     },

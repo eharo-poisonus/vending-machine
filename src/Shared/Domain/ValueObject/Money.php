@@ -6,7 +6,7 @@ use App\PaymentSessions\Domain\Exception\InvalidDenominationException;
 
 final readonly class Money
 {
-    private const array ALLOWED_DENOMINATIONS = [5, 10, 25, 1];
+    private const array ALLOWED_DENOMINATIONS = [5, 10, 25, 100];
 
     /** @throws InvalidDenominationException */
     public function __construct(

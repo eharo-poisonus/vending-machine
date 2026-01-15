@@ -31,15 +31,11 @@ final class Version20260115130815 extends AbstractMigration
         ');
 
         $this->addSql('
-            INSERT INTO currency_types (id, name) VALUES (1, \'COIN\')
-        ');
-
-        $this->addSql('
-            INSERT INTO currency_denominations (id, currency_type_id, value_in_cents)
-            VALUES (1, 1, 5),
-                   (2, 1, 10),
-                   (3, 1, 25),
-                   (4, 1, 100)
+            INSERT INTO currency_denominations (id, value_in_cents)
+            VALUES (1, 5),
+                   (2, 10),
+                   (3, 25),
+                   (4, 100)
         ');
 
         $this->addSql('
@@ -53,7 +49,12 @@ final class Version20260115130815 extends AbstractMigration
 
     public function down(Schema $schema): void
     {
-        // this down() migration is auto-generated, please modify it to your needs
+        $this->addSql('DELETE FROM machine_currencies WHERE vending_machine_id = 1');
 
+        $this->addSql('DELETE FROM products WHERE vending_machine_id = 1');
+
+        $this->addSql('DELETE FROM vending_machines WHERE id = 1');
+
+        $this->addSql('DELETE FROM currency_denominations WHERE id IN (1,2,3,4)');
     }
 }

@@ -70,3 +70,9 @@ test-unit:
 ### Vending machine specific commands
 vending-machine-commands:
 	$(PHP_CMD) bin/console list vending-machine
+
+insert-coins:
+	@$(PHP_CMD) bin/console vending-machine:insert-money
+
+total-balance:
+	@$(PHP_CMD) bin/console vending-machine:total-balance

@@ -44,7 +44,7 @@ class RetrievePaymentSessionConsoleCommand extends BaseConsoleCommand
             return Command::SUCCESS;
         } catch (DomainException $exception) {
             $output->writeln($exception->getMessage());
-            return Command::SUCCESS;
+            return Command::FAILURE;
         }
 
     }

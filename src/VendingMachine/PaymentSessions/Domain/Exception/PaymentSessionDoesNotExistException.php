@@ -2,9 +2,9 @@
 
 namespace App\VendingMachine\PaymentSessions\Domain\Exception;
 
-use Exception;
+use App\Shared\Domain\Exception\DomainException;
 
-class PaymentSessionDoesNotExistException extends Exception
+class PaymentSessionDoesNotExistException extends DomainException
 {
     public function __construct()
     {

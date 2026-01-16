@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Shared\Domain\Bus\Query\QueryBus;
+use App\Shared\Domain\Exception\DomainException;
 use App\Shared\Domain\Exception\InvalidUuidException;
 use App\VendingMachine\PaymentSessions\Application\RetrievePaymentSession\PaymentSessionResponse;
 use App\VendingMachine\PaymentSessions\Application\RetrievePaymentSession\RetrievePaymentSessionQuery;
@@ -41,17 +42,10 @@ class RetrievePaymentSessionConsoleCommand extends BaseConsoleCommand
             );
 
             return Command::SUCCESS;
-        } catch (
-            VendingMachineDoesNotExistException|
-            PaymentSessionDoesNotExistException|
-            InvalidUuidException $exception
-        ) {
+        } catch (DomainException $exception) {
             $output->writeln($exception->getMessage());
-            return Command::FAILURE;
-        } catch (Exception $exception) {
-            dd($exception);
-            $output->writeln('An unexpected error occurred.');
-            return Command::FAILURE;
+            return Command::SUCCESS;
         }
+
     }
 }

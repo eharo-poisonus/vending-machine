@@ -1,7 +1,13 @@
 parameters:
 
-services:
 
+when@console:
+    services:
+        App\Shared\Infrastructure\Symfony\Middleware\UnwrapDomainExceptionMiddleware:
+            tags:
+                - { name: messenger.middleware, priority: 100 }
+
+services:
     _defaults:
         autowire: true
         autoconfigure: true

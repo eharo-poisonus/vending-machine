@@ -22,7 +22,7 @@ final class Version20260115124416 extends AbstractMigration
         $this->addSql('
             CREATE TABLE IF NOT EXISTS machine_currencies (
                 id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-                vending_machine_id INT NOT NULL,
+                vending_machine_id CHAR(36) NOT NULL,
                 denomination_id INT NOT NULL,
                 amount INT NOT NULL,
                 CONSTRAINT FK_machine_currencies_vending_machines

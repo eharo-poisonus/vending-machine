@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                   https://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="App\VendingMachine\VendingMachines\Domain\VendingMachine" table="vending_machines">
+        <id name="id" type="vending_machine_id" column="id" >
+            <generator strategy="NONE" />
+        </id>
+
+        <field name="active" type="boolean" column="is_active" />
+        <field name="installedAt" type="datetime_immutable" column="installed_at" />
+        <field name="lastService" type="datetime_immutable" column="last_service" nullable="true" />
+        <field name="lastMaintenance" type="datetime_immutable" column="last_maintenance" nullable="true" />
+
+        <one-to-many field="products" target-entity="App\VendingMachine\VendingMachines\Domain\Product"
+                     mapped-by="vendingMachine" orphan-removal="true" />
+
+        <one-to-many field="moneyInventory" target-entity="App\VendingMachine\VendingMachines\Domain\MachineChangeCurrency"
+        mapped-by="vendingMachine" orphan-removal="true" />
+
+    </entity>
+
+</doctrine-mapping>

@@ -21,8 +21,8 @@ final class Version20260115120239 extends AbstractMigration
     {
         $this->addSql('
             CREATE TABLE IF NOT EXISTS products (
-                id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-                vending_machine_id INT NOT NULL,
+                id CHAR(36) NOT NULL PRIMARY KEY,
+                vending_machine_id CHAR(36) NOT NULL,
                 code VARCHAR(100) NOT NULL,
                 price_in_cents INT NOT NULL,
                 stock INT NOT NULL,

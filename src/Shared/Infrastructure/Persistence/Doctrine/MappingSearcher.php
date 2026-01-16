@@ -21,7 +21,7 @@ final class MappingSearcher
                     $mappings[$contextBasePath . $singleContext . self::MAPPINGS_PATH] = $namespace;
                 } else {
                     foreach ($modules as $module) {
-                        if ($module === 'Shared' || in_array($module, $modulesToExclude)) {
+                        if (in_array($module, $modulesToExclude)) {
                             continue;
                         }
                         $namespace = $singleContext ? "App\\$singleContext\\$module\\Domain" : "App\\$module\\Domain";

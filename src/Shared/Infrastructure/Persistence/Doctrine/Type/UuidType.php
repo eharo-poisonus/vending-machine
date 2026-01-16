@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Shared\Infrastructure\Persistence\Doctrine\Types;
+namespace App\Shared\Infrastructure\Persistence\Doctrine\Type;
 
 use App\Shared\Domain\Utils;
 use App\Shared\Domain\ValueObject\Uuid;

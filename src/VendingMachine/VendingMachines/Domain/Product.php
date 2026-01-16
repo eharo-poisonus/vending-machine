@@ -1,8 +1,8 @@
 <?php
 
-namespace App\VendingMachines\Domain;
+namespace App\VendingMachine\VendingMachines\Domain;
 
-class Products
+class Product
 {
     public function __construct(
         private int $id,

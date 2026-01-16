@@ -18,7 +18,7 @@ final class CustomTypeSearcher
         $resources = scandir($path);
         $resources = array_filter($resources, fn ($resource) => (!in_array($resource, ['..', '.'])));
         foreach ($resources as $resource) {
-            if ($namespace === 'App\\Shared\\Infrastructure\\Persistence\\Doctrine\\Types') {
+            if ($namespace === 'App\\Shared\\Infrastructure\\Persistence\\Doctrine\\Type') {
                 continue;
             }
             if (preg_match('/Type.php$/', $resource)) {

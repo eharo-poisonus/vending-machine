@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                   https://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="App\VendingMachine\PaymentSessions\Domain\PaymentSessionCurrency" table="payment_session_currencies">
+        <id name="id" type="integer" column="id" >
+            <generator strategy="AUTO" />
+        </id>
+
+        <field name="amount" type="integer" column="amount" />
+
+        <many-to-one field="paymentSession" inversed-by="insertedCurrencies" target-entity="App\VendingMachine\PaymentSessions\Domain\PaymentSession" >
+            <join-column name="payment_session_id" referenced-column-name="id" nullable="false" on-delete="CASCADE" />
+        </many-to-one>
+
+        <many-to-one field="denomination"
+                     target-entity="App\VendingMachine\Shared\Domain\CurrencyDenomination">
+
+            <join-column name="denomination_id"
+                         referenced-column-name="id"
+                         nullable="false"/>
+
+        </many-to-one>
+
+    </entity>
+
+</doctrine-mapping>

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Shared\Infrastructure\Persistence\Doctrine\Types;
+namespace App\Shared\Infrastructure\Persistence\Doctrine\Type;
 
 interface DoctrineCustomType
 {

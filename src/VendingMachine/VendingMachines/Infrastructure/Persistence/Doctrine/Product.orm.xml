@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                   https://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="App\VendingMachine\VendingMachines\Domain\Product" table="products">
+        <id name="id" type="product_id" column="id" >
+            <generator strategy="NONE" />
+        </id>
+
+        <field name="code" type="string" column="code" />
+        <field name="priceInCents" type="integer" column="price_in_cents" />
+        <field name="stock" type="integer" column="stock" />
+
+
+    </entity>
+
+</doctrine-mapping>

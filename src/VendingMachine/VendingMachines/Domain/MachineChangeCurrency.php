@@ -1,10 +1,10 @@
 <?php
 
-namespace App\VendingMachines\Domain;
+namespace App\VendingMachine\VendingMachines\Domain;
 
 use App\Shared\Domain\ValueObject\Money;
 
-class MoneyInventory
+class MachineChangeCurrency
 {
     public function __construct(
         private int $id,

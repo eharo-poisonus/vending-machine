@@ -7,9 +7,9 @@ use App\Shared\Domain\Bus\Query\QueryBus;
 use App\Shared\Domain\Exception\DomainException;
 use App\VendingMachine\PaymentSessions\Application\InsertMoney\InsertMoneyCommand;
 use App\VendingMachine\PaymentSessions\Application\RetrievePaymentSession\RetrievePaymentSessionQuery;
+use Symfony\Component\Console\Attribute\Argument;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 #[AsCommand(name: 'vending-machine:insert-money')]
@@ -24,14 +24,14 @@ class InsertMoneyConsoleCommand extends BaseConsoleCommand
         parent::__construct($name, $code);
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): int
+    public function __invoke(#[Argument('The money inserted')] float $insertedMoney, OutputInterface $output): int
     {
         try {
             $this->commandBus->dispatch(
                 new InsertMoneyCommand(
                     self::VENDING_MACHINE_ID,
                     self::PAYMENT_SESSION_ID,
-                    0.25
+                    $insertedMoney
                 )
             );
 

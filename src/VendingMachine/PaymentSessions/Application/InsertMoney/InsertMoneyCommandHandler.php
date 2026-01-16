@@ -4,7 +4,6 @@ namespace App\VendingMachine\PaymentSessions\Application\InsertMoney;
 
 use App\Shared\Domain\Bus\Command\CommandHandler;
 use App\Shared\Domain\Exception\InvalidUuidException;
-use App\Shared\Domain\Exception\MultipleCurrencyDenominationsWithSameValueException;
 use App\Shared\Domain\Exception\NotAllowedCurrencyDenominationException;
 use App\Shared\Domain\ValueObject\Money;
 use App\VendingMachine\PaymentSessions\Domain\Exception\InvalidDenominationException;

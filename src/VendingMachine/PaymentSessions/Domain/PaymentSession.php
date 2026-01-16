@@ -61,12 +61,12 @@ class PaymentSession extends AggregateRoot
         );
     }
 
-    public function total(): int
+    public function total(): float
     {
         return array_sum(
             $this->insertedCurrencies->map(
                 fn(PaymentSessionCurrency $paymentSessionCurrency) =>
-                    $paymentSessionCurrency->denomination()->cents() * $paymentSessionCurrency->amount()
+                    $paymentSessionCurrency->denomination()->money()->value() * $paymentSessionCurrency->amount()
             )->toArray()
         );
     }

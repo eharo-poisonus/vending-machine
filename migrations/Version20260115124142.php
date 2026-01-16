@@ -21,8 +21,8 @@ final class Version20260115124142 extends AbstractMigration
     {
         $this->addSql('
             CREATE TABLE IF NOT EXISTS payment_sessions (
-                id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-                vending_machine_id INT NOT NULL,
+                id CHAR(36) NOT NULL PRIMARY KEY,
+                vending_machine_id CHAR(36) NOT NULL,
                 CONSTRAINT FK_payment_sessions_vending_machines
                     FOREIGN KEY (vending_machine_id)
                     REFERENCES vending_machines(id)
@@ -34,7 +34,7 @@ final class Version20260115124142 extends AbstractMigration
         $this->addSql('
             CREATE TABLE IF NOT EXISTS payment_session_currencies (
                 id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-                payment_session_id INT NOT NULL,
+                payment_session_id CHAR(36) NOT NULL,
                 denomination_id INT NOT NULL,
                 amount INT NOT NULL,
                 CONSTRAINT FK_payment_session_currencies_payment_sessions

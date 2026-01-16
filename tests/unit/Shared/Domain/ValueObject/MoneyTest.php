@@ -2,8 +2,8 @@
 
 namespace App\Tests\unit\Shared\Domain\ValueObject;
 
-use App\PaymentSessions\Domain\Exception\InvalidDenominationException;
 use App\Shared\Domain\ValueObject\Money;
+use App\VendingMachine\PaymentSessions\Domain\Exception\InvalidDenominationException;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -30,14 +30,14 @@ class MoneyTest extends TestCase
     public function itShouldThrowExceptionOnInvalidDenominationFromCents(): void
     {
         $this->expectException(InvalidDenominationException::class);
-        Money::fromCents(1);
+        Money::fromCents(0);
     }
 
     #[Test]
     public function itShouldThrowExceptionOnInvalidDenominationFromFloat(): void
     {
         $this->expectException(InvalidDenominationException::class);
-        Money::fromFloat(0.20);
+        Money::fromFloat(-0.20);
     }
 
     public static function moneyValuesProvider(): array

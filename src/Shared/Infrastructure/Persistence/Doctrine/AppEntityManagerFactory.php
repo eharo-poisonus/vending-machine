@@ -2,7 +2,7 @@
 
 namespace App\Shared\Infrastructure\Persistence\Doctrine;
 
-use App\Shared\Infrastructure\Persistence\Doctrine\Types\DoctrineCustomType;
+use App\Shared\Infrastructure\Persistence\Doctrine\Type\DoctrineCustomType;
 use Doctrine\DBAL\DriverManager;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\Configuration;

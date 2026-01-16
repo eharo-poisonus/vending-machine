@@ -10,7 +10,7 @@ class EntityManagerFactory
 
     public static function create(array $parameters, string $environment): EntityManagerInterface
     {
-        $mappings = MappingSearcher::inContext(null, ['Shared'], ['Symfony']);
+        $mappings = MappingSearcher::inContext(null, ['Shared', 'Console'], ['Symfony']);
         $customTypes = CustomTypeSearcher::fromPaths(array_keys($mappings));
         $customTypes = array_merge($customTypes, self::SHARED_CONTEXT_TYPES);
 

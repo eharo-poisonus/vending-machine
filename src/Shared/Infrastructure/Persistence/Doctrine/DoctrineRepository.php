@@ -9,7 +9,7 @@ use Doctrine\ORM\Exception\ORMException;
 use Exception;
 use Symfony\Component\HttpFoundation\Response;
 
-readonly class DoctrineRepository
+class DoctrineRepository
 {
     public function __construct(
         private EntityManagerInterface $entityManager

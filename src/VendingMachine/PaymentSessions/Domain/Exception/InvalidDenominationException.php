@@ -1,6 +1,6 @@
 <?php
 
-namespace App\PaymentSessions\Domain\Exception;
+namespace App\VendingMachine\PaymentSessions\Domain\Exception;
 
 use Exception;
 

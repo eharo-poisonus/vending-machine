@@ -1,36 +1,37 @@
 <?php
 
-namespace App\PaymentSessions\Domain;
+namespace App\VendingMachine\PaymentSessions\Domain;
 
 use App\Shared\Domain\Aggregate\AggregateRoot;
-use App\Shared\Domain\ValueObject\Money;
+use App\VendingMachine\Shared\Domain\CurrencyDenomination;
+use App\VendingMachine\VendingMachines\Domain\VendingMachineId;
 use Doctrine\Common\Collections\Collection;
 
 class PaymentSession extends AggregateRoot
 {
     public function __construct(
-        private int $id,
-        private int $vendingMachineId,
+        private PaymentSessionId $id,
+        private VendingMachineId $vendingMachineId,
         private Collection $insertedCurrencies
     ) {
     }
 
-    public function id(): int
+    public function id(): PaymentSessionId
     {
         return $this->id;
     }
 
-    public function setId(int $id): void
+    public function setId(PaymentSessionId $id): void
     {
         $this->id = $id;
     }
 
-    public function vendingMachineId(): int
+    public function vendingMachineId(): VendingMachineId
     {
         return $this->vendingMachineId;
     }
 
-    public function setVendingMachineId(int $vendingMachineId): void
+    public function setVendingMachineId(VendingMachineId $vendingMachineId): void
     {
         $this->vendingMachineId = $vendingMachineId;
     }
@@ -40,21 +41,24 @@ class PaymentSession extends AggregateRoot
         return $this->insertedCurrencies;
     }
 
-    public function addMoney(Money $money): void
+    public function setInsertedCurrencies(Collection $insertedCurrencies): void
     {
+        $this->insertedCurrencies = $insertedCurrencies;
+    }
+
+    public function addCurrency(CurrencyDenomination $currencyDenomination): void
+    {
+        /** @var PaymentSessionCurrency $currency */
         foreach ($this->insertedCurrencies as $currency) {
-            if ($currency->money()->cents() === $money->cents()) {
+            if ($currency->denomination()->money()->cents() === $currencyDenomination->money()->cents()) {
                 $currency->addCurrency();
                 return;
             }
         }
 
-        $this->insertedCurrencies->add(PaymentSessionCurrency::create($money));
-    }
-
-    public function setInsertedCurrencies(Collection $insertedCurrencies): void
-    {
-        $this->insertedCurrencies = $insertedCurrencies;
+        $this->insertedCurrencies->add(
+            PaymentSessionCurrency::create($this, $currencyDenomination)
+        );
     }
 
     public function total(): int

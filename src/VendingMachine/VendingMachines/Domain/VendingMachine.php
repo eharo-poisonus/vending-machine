@@ -1,6 +1,6 @@
 <?php
 
-namespace App\VendingMachines\Domain;
+namespace App\VendingMachine\VendingMachines\Domain;
 
 use App\Shared\Domain\Aggregate\AggregateRoot;
 use DateTimeImmutable;
@@ -9,22 +9,22 @@ use Doctrine\Common\Collections\Collection;
 class VendingMachine extends AggregateRoot
 {
     public function __construct(
-        private int $id,
+        private VendingMachineId $id,
         private bool $active,
-        private DateTimeImmutable $installedAt,
-        private DateTimeImmutable $lastService,
-        private DateTimeImmutable $lastMaintenance,
         private Collection $products,
-        private Collection $moneyInventory
+        private Collection $moneyInventory,
+        private DateTimeImmutable $installedAt,
+        private ?DateTimeImmutable $lastService = null,
+        private ?DateTimeImmutable $lastMaintenance = null
     ) {
     }
 
-    public function id(): int
+    public function id(): VendingMachineId
     {
         return $this->id;
     }
 
-    public function setId(int $id): void
+    public function setId(VendingMachineId $id): void
     {
         $this->id = $id;
     }

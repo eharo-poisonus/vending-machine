@@ -20,9 +20,6 @@ composer-require:
 	@read -p "Enter the library to require (e.g. symfony/var-dumper): " library; \
 	$(COMPOSER_CMD) require $$library --ignore-platform-req=ext-openswoole
 
-composer-dump-autoload:
-	$(COMPOSER_CMD) dump-autoload
-
 ### Docker
 shell:
 	$(CONTAINER_CMD) /bin/bash
@@ -46,6 +43,9 @@ logs:
 ### Symfony
 cache-clear:
 	$(PHP_CMD) bin/console cache:clear
+
+dump-autoload:
+	$(COMPOSER_CMD) dump-autoload
 
 debug-router:
 	$(PHP_CMD) bin/console debug:router
@@ -76,3 +76,6 @@ insert-coins:
 
 total-balance:
 	@$(PHP_CMD) bin/console vending-machine:total-balance
+
+return-money:
+	@$(PHP_CMD) bin/console vending-machine:return-money

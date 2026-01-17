@@ -9,6 +9,7 @@ readonly class ProductResponse implements Response
 {
     public function __construct(
         private string $id,
+        private string $name,
         private string $code,
         private int $price,
         private int $stock
@@ -21,6 +22,7 @@ readonly class ProductResponse implements Response
 
         return new self(
             $product->id()->value(),
+            $product->name(),
             $product->code(),
             $productPrice,
             $product->stock()
@@ -30,6 +32,11 @@ readonly class ProductResponse implements Response
     public function id(): string
     {
         return $this->id;
+    }
+
+    public function name(): string
+    {
+        return $this->name;
     }
 
     public function code(): string

@@ -9,7 +9,8 @@
             <generator strategy="NONE" />
         </id>
 
-        <field name="code" type="string" column="code" />
+        <field name="name" type="string" column="name" length="100" />
+        <field name="code" type="string" column="code" length="100" />
         <field name="priceInCents" type="integer" column="price_in_cents" />
         <field name="stock" type="integer" column="stock" />
 

@@ -7,6 +7,7 @@ class Product
     public function __construct(
         private ProductId $id,
         private VendingMachine $vendingMachine,
+        private string $name,
         private string $code,
         private int $priceInCents,
         private int $stock
@@ -31,6 +32,16 @@ class Product
     public function setVendingMachine(VendingMachine $vendingMachine): void
     {
         $this->vendingMachine = $vendingMachine;
+    }
+
+    public function name(): string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): void
+    {
+        $this->name = $name;
     }
 
     public function code(): string

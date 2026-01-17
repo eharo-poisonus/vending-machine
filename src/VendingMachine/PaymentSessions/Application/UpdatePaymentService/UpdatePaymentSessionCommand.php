@@ -1,21 +1,15 @@
 <?php
 
-namespace App\VendingMachine\PaymentSessions\Application\InsertMoney;
+namespace App\VendingMachine\PaymentSessions\Application\UpdatePaymentService;
 
 use App\Shared\Domain\Bus\Command\Command;
 
-readonly class InsertMoneyCommand implements Command
+final readonly class UpdatePaymentSessionCommand implements Command
 {
     public function __construct(
-        private string $vendingMachineId,
         private string $paymentSessionId,
         private float $insertedMoney
     ) {
-    }
-
-    public function vendingMachineId(): string
-    {
-        return $this->vendingMachineId;
     }
 
     public function paymentSessionId(): string

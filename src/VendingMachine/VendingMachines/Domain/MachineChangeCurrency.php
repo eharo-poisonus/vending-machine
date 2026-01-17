@@ -3,6 +3,7 @@
 namespace App\VendingMachine\VendingMachines\Domain;
 
 use App\VendingMachine\Shared\Domain\CurrencyDenomination;
+use App\VendingMachine\VendingMachines\Domain\Exception\CurrencyAmountAddedCanNotBeNegativeException;
 
 class MachineChangeCurrency
 {
@@ -52,5 +53,15 @@ class MachineChangeCurrency
     public function setAmount(int $amount): void
     {
         $this->amount = $amount;
+    }
+
+    /** @throws CurrencyAmountAddedCanNotBeNegativeException */
+    public function addAmount(int $amountToAdd): void
+    {
+        if ($amountToAdd < 0) {
+            throw new CurrencyAmountAddedCanNotBeNegativeException();
+        }
+
+        $this->amount += $amountToAdd;
     }
 }

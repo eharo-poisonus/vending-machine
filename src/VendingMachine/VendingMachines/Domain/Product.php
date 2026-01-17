@@ -2,6 +2,8 @@
 
 namespace App\VendingMachine\VendingMachines\Domain;
 
+use App\VendingMachine\VendingMachines\Domain\Exception\ProductStockAddedCanNotBeNegativeException;
+
 class Product
 {
     public function __construct(
@@ -72,5 +74,15 @@ class Product
     public function setStock(int $stock): void
     {
         $this->stock = $stock;
+    }
+
+    /** @throws ProductStockAddedCanNotBeNegativeException */
+    public function addStock(int $amount): void
+    {
+        if ($amount < 0) {
+            throw new ProductStockAddedCanNotBeNegativeException();
+        }
+
+        $this->stock += $amount;
     }
 }

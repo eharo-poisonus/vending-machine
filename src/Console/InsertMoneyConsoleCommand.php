@@ -10,6 +10,7 @@ use App\VendingMachine\PaymentSessions\Application\CreatePaymentSession\CreatePa
 use App\VendingMachine\PaymentSessions\Application\RetrievePaymentSession\PaymentSessionResponse;
 use App\VendingMachine\PaymentSessions\Application\RetrievePaymentSession\RetrievePaymentSessionQuery;
 use App\VendingMachine\PaymentSessions\Application\UpdatePaymentService\UpdatePaymentSessionCommand;
+use App\VendingMachine\PaymentSessions\Domain\Exception\PaymentSessionAlreadyExists;
 use Symfony\Component\Console\Attribute\Argument;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -37,6 +38,12 @@ class InsertMoneyConsoleCommand extends BaseConsoleCommand
             $output->writeln(sprintf('Current balance: %s', $paymentSession->totalInsertedMoney()));
 
             return Command::SUCCESS;
+        } catch (PaymentSessionAlreadyExists $exception) {
+            $this->removePaymentSessionIdFromMemory();
+
+            $output->writeln($exception->getMessage());
+
+            return Command::FAILURE;
         } catch (DomainException $exception) {
             $output->writeln($exception->getMessage());
 
@@ -88,7 +95,6 @@ class InsertMoneyConsoleCommand extends BaseConsoleCommand
     {
         return $this->queryBus->ask(
             new RetrievePaymentSessionQuery(
-                self::VENDING_MACHINE_ID,
                 $paymentSessionId
             )
         );

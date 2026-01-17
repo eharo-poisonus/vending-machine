@@ -4,12 +4,8 @@ namespace App\Console;
 
 use App\Shared\Domain\Bus\Query\QueryBus;
 use App\Shared\Domain\Exception\DomainException;
-use App\Shared\Domain\Exception\InvalidUuidException;
 use App\VendingMachine\PaymentSessions\Application\RetrievePaymentSession\PaymentSessionResponse;
 use App\VendingMachine\PaymentSessions\Application\RetrievePaymentSession\RetrievePaymentSessionQuery;
-use App\VendingMachine\PaymentSessions\Domain\Exception\PaymentSessionDoesNotExistException;
-use App\VendingMachine\VendingMachines\Domain\Exception\VendingMachineDoesNotExistException;
-use Exception;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -29,11 +25,17 @@ class RetrievePaymentSessionConsoleCommand extends BaseConsoleCommand
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         try {
+            $actualPaymentSessionId = $this->retrievePaymentSessionIdFromMemory();
+
+            if (null === $actualPaymentSessionId) {
+                $output->writeln('No payment session found.');
+                return Command::FAILURE;
+            }
+
             /** @var PaymentSessionResponse $paymentSession */
             $paymentSession = $this->queryBus->ask(
                 new RetrievePaymentSessionQuery(
-                    self::VENDING_MACHINE_ID,
-                    self::PAYMENT_SESSION_ID
+                    $actualPaymentSessionId
                 )
             );
 

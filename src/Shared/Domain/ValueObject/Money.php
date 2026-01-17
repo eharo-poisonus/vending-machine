@@ -36,6 +36,11 @@ final readonly class Money
         return $this->cents / 100;
     }
 
+    public function greaterOrEqualThan(Money $other): bool
+    {
+        return $this->cents >= $other->cents();
+    }
+
     /** @throws InvalidDenominationException */
     private function validate(): void
     {

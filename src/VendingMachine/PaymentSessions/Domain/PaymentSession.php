@@ -3,8 +3,10 @@
 namespace App\VendingMachine\PaymentSessions\Domain;
 
 use App\Shared\Domain\Aggregate\AggregateRoot;
+use App\Shared\Domain\ValueObject\Money;
 use App\VendingMachine\Shared\Domain\CurrencyDenomination;
 use App\VendingMachine\VendingMachines\Domain\VendingMachineId;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
 class PaymentSession extends AggregateRoot
@@ -61,13 +63,27 @@ class PaymentSession extends AggregateRoot
         );
     }
 
-    public function total(): float
+    public function total(): Money
     {
-        return array_sum(
+        $totalCents = array_sum(
             $this->insertedCurrencies->map(
                 fn(PaymentSessionCurrency $paymentSessionCurrency) =>
-                    $paymentSessionCurrency->denomination()->money()->value() * $paymentSessionCurrency->amount()
+                    $paymentSessionCurrency->denomination()->money()->cents() * $paymentSessionCurrency->amount()
             )->toArray()
+        );
+
+        return Money::fromCents($totalCents);
+    }
+
+    public function canAfford(Money $productPrice): bool
+    {
+        return $this->total()->greaterOrEqualThan($productPrice);
+    }
+
+    public function replaceInsertedCurrencies(array $changeCurrencies): void
+    {
+        $this->setInsertedCurrencies(
+            new ArrayCollection($changeCurrencies)
         );
     }
 }

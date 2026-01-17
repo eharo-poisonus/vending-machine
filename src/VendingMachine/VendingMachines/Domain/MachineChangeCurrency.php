@@ -64,4 +64,9 @@ class MachineChangeCurrency
 
         $this->amount += $amountToAdd;
     }
+
+    public function removeAmount(int $amountToRemove): void
+    {
+        $this->amount -= $amountToRemove;
+    }
 }

@@ -11,7 +11,7 @@
 
         <field name="name" type="string" column="name" length="100" />
         <field name="code" type="string" column="code" length="100" />
-        <field name="priceInCents" type="integer" column="price_in_cents" />
+        <field name="price" type="money" column="price_in_cents" />
         <field name="stock" type="integer" column="stock" />
 
         <many-to-one field="vendingMachine" target-entity="App\VendingMachine\VendingMachines\Domain\VendingMachine" inversed-by="products">

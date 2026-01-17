@@ -28,7 +28,7 @@ readonly class PaymentSessionResponse implements Response
             $paymentSession->id()->value(),
             $paymentSession->vendingMachineId()->value(),
             $insertedCurrencies,
-            $paymentSession->total()
+            $paymentSession->total()->value()
         );
     }
 

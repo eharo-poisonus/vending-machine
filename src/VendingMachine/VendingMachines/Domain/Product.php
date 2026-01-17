@@ -2,6 +2,8 @@
 
 namespace App\VendingMachine\VendingMachines\Domain;
 
+use App\Shared\Domain\ValueObject\Money;
+use App\VendingMachine\VendingMachines\Domain\Exception\ProductOutOfStockException;
 use App\VendingMachine\VendingMachines\Domain\Exception\ProductStockAddedCanNotBeNegativeException;
 
 class Product
@@ -11,7 +13,7 @@ class Product
         private VendingMachine $vendingMachine,
         private string $name,
         private string $code,
-        private int $priceInCents,
+        private Money $price,
         private int $stock
     ) {
     }
@@ -56,14 +58,14 @@ class Product
         $this->code = $code;
     }
 
-    public function priceInCents(): int
+    public function price(): Money
     {
-        return $this->priceInCents;
+        return $this->price;
     }
 
-    public function setPriceInCents(int $priceInCents): void
+    public function setPriceInCents(Money $price): void
     {
-        $this->priceInCents = $priceInCents;
+        $this->price = $price;
     }
 
     public function stock(): int
@@ -84,5 +86,20 @@ class Product
         }
 
         $this->stock += $amount;
+    }
+
+    public function hasStock(): bool
+    {
+        return $this->stock > 0;
+    }
+
+    /** @throws ProductOutOfStockException */
+    public function decreaseStock(): void
+    {
+        if (!$this->hasStock()) {
+            throw new ProductOutOfStockException();
+        }
+
+        $this->stock--;
     }
 }

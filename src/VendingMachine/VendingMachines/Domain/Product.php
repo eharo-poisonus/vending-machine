@@ -5,7 +5,7 @@ namespace App\VendingMachine\VendingMachines\Domain;
 class Product
 {
     public function __construct(
-        private int $id,
+        private ProductId $id,
         private VendingMachine $vendingMachine,
         private string $code,
         private int $priceInCents,
@@ -13,12 +13,12 @@ class Product
     ) {
     }
 
-    public function id(): int
+    public function id(): ProductId
     {
         return $this->id;
     }
 
-    public function setId(int $id): void
+    public function setId(ProductId $id): void
     {
         $this->id = $id;
     }

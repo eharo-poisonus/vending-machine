@@ -10,6 +10,19 @@
         </id>
         <field name="amount" type="integer" column="amount" />
 
+        <many-to-one field="vendingMachine" target-entity="App\VendingMachine\VendingMachines\Domain\VendingMachine" inversed-by="moneyInventory">
+            <join-column name="vending_machine_id" referenced-column-name="id" nullable="false" />
+        </many-to-one>
+
+        <many-to-one field="denomination"
+                     target-entity="App\VendingMachine\Shared\Domain\CurrencyDenomination">
+
+            <join-column name="denomination_id"
+                         referenced-column-name="id"
+                         nullable="false"/>
+
+        </many-to-one>
+
     </entity>
 
 </doctrine-mapping>

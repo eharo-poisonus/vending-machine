@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\unit\PaymentSessions\Application\UpdatePaymentSession;
+namespace App\Tests\unit\VendingMachine\PaymentSessions\Application\UpdatePaymentSession;
 
 use App\Shared\Domain\Exception\NotAllowedCurrencyDenominationException;
 use App\Shared\Domain\ValueObject\Money;

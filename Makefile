@@ -79,3 +79,6 @@ total-balance:
 
 return-money:
 	@$(PHP_CMD) bin/console vending-machine:return-money
+
+vending-machine-status:
+	@$(PHP_CMD) bin/console vending-machine:retrieve

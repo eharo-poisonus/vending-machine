@@ -8,7 +8,6 @@ use App\Shared\Domain\Exception\DomainException;
 use App\VendingMachine\PaymentSessions\Application\CancelPaymentSession\CancelPaymentSessionCommand;
 use App\VendingMachine\PaymentSessions\Application\CompletePaymentSession\CompletePaymentSessionCommand;
 use App\VendingMachine\PaymentSessions\Application\RetrievePaymentSession\PaymentSessionCurrencyResponse;
-use App\VendingMachine\PaymentSessions\Application\RetrievePaymentSession\RetrievePaymentSessionQuery;
 use App\VendingMachine\PaymentSessions\Application\RetrievePaymentSessionPurchase\PurchaseResponse;
 use App\VendingMachine\PaymentSessions\Application\RetrievePaymentSessionPurchase\RetrievePaymentSessionPurchaseQuery;
 use Symfony\Component\Console\Attribute\Argument;
@@ -84,6 +83,6 @@ class BuyProductConsoleCommand extends BaseConsoleCommand
             )
         );
 
-        return sprintf('%s, %s', implode(', ', $normalizedInsertedCoins), $purchaseResponse->product());
+        return sprintf('%s | %s', implode(', ', $normalizedInsertedCoins), $purchaseResponse->product());
     }
 }

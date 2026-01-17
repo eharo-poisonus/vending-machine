@@ -2,14 +2,14 @@
 
 namespace App\VendingMachine\VendingMachines\Domain;
 
-use App\Shared\Domain\ValueObject\Money;
+use App\VendingMachine\Shared\Domain\CurrencyDenomination;
 
 class MachineChangeCurrency
 {
     public function __construct(
         private int $id,
         private VendingMachine $vendingMachine,
-        private Money $denomination,
+        private CurrencyDenomination $denomination,
         private int $amount
     ) {
     }
@@ -34,12 +34,12 @@ class MachineChangeCurrency
         $this->vendingMachine = $vendingMachine;
     }
 
-    public function denomination(): Money
+    public function denomination(): CurrencyDenomination
     {
         return $this->denomination;
     }
 
-    public function setDenomination(Money $denomination): void
+    public function setDenomination(CurrencyDenomination $denomination): void
     {
         $this->denomination = $denomination;
     }

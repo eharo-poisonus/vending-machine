@@ -9,10 +9,7 @@
             <generator strategy="NONE" />
         </id>
 
-        <field name="active" type="boolean" column="is_active" />
         <field name="installedAt" type="datetime_immutable" column="installed_at" />
-        <field name="lastService" type="datetime_immutable" column="last_service" nullable="true" />
-        <field name="lastMaintenance" type="datetime_immutable" column="last_maintenance" nullable="true" />
 
         <one-to-many field="products" target-entity="App\VendingMachine\VendingMachines\Domain\Product"
                      mapped-by="vendingMachine" orphan-removal="true" />

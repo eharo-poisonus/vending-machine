@@ -10,12 +10,9 @@ class VendingMachine extends AggregateRoot
 {
     public function __construct(
         private VendingMachineId $id,
-        private bool $active,
         private Collection $products,
         private Collection $moneyInventory,
-        private DateTimeImmutable $installedAt,
-        private ?DateTimeImmutable $lastService = null,
-        private ?DateTimeImmutable $lastMaintenance = null
+        private DateTimeImmutable $installedAt
     ) {
     }
 
@@ -29,16 +26,6 @@ class VendingMachine extends AggregateRoot
         $this->id = $id;
     }
 
-    public function isActive(): bool
-    {
-        return $this->active;
-    }
-
-    public function setActive(bool $active): void
-    {
-        $this->active = $active;
-    }
-
     public function installedAt(): DateTimeImmutable
     {
         return $this->installedAt;
@@ -47,26 +34,6 @@ class VendingMachine extends AggregateRoot
     public function setInstalledAt(DateTimeImmutable $installedAt): void
     {
         $this->installedAt = $installedAt;
-    }
-
-    public function lastService(): DateTimeImmutable
-    {
-        return $this->lastService;
-    }
-
-    public function setLastService(DateTimeImmutable $lastService): void
-    {
-        $this->lastService = $lastService;
-    }
-
-    public function lastMaintenance(): DateTimeImmutable
-    {
-        return $this->lastMaintenance;
-    }
-
-    public function setLastMaintenance(DateTimeImmutable $lastMaintenance): void
-    {
-        $this->lastMaintenance = $lastMaintenance;
     }
 
     public function products(): Collection

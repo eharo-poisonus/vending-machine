@@ -50,12 +50,12 @@ final class Version20260115130815 extends AbstractMigration
 
     public function down(Schema $schema): void
     {
-        $this->addSql('DELETE FROM machine_currencies');
+        $this->addSql('DELETE FROM machine_currencies WHERE id IN (1, 2, 3, 4)');
 
-        $this->addSql('DELETE FROM products');
+        $this->addSql('DELETE FROM products WHERE vending_machine_id = \'db4463a3-6e45-4bd6-ba32-b2b9cc27c7ac\'');
 
-        $this->addSql('DELETE FROM vending_machines');
+        $this->addSql('DELETE FROM vending_machines WHERE id = \'db4463a3-6e45-4bd6-ba32-b2b9cc27c7ac\'');
 
-        $this->addSql('DELETE FROM currency_denominations');
+        $this->addSql('DELETE FROM currency_denominations WHERE id IN (1, 2, 3, 4)');
     }
 }

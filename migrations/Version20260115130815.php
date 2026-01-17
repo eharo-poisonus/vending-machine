@@ -20,17 +20,15 @@ final class Version20260115130815 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $vendingMachineId = SimpleUuid::random();
-
         $this->addSql('
-            INSERT INTO vending_machines (id, is_active, installed_at) VALUES (\''.$vendingMachineId.'\', 1, NOW())
+            INSERT INTO vending_machines (id, installed_at) VALUES (\'db4463a3-6e45-4bd6-ba32-b2b9cc27c7ac\', NOW())
         ');
 
         $this->addSql('
             INSERT INTO products (id, vending_machine_id, code, price_in_cents, stock)
-            VALUES (\''.SimpleUuid::random().'\', \''.$vendingMachineId.'\', \'GET_WATER\', 65, 5),
-                   (\''.SimpleUuid::random().'\', \''.$vendingMachineId.'\', \'GET_JUICE\', 100, 5),
-                   (\''.SimpleUuid::random().'\', \''.$vendingMachineId.'\', \'GET_SODA\', 150, 5)
+            VALUES (\''.SimpleUuid::random().'\', \'db4463a3-6e45-4bd6-ba32-b2b9cc27c7ac\', \'GET_WATER\', 65, 5),
+                   (\''.SimpleUuid::random().'\', \'db4463a3-6e45-4bd6-ba32-b2b9cc27c7ac\', \'GET_JUICE\', 100, 5),
+                   (\''.SimpleUuid::random().'\', \'db4463a3-6e45-4bd6-ba32-b2b9cc27c7ac\', \'GET_SODA\', 150, 5)
         ');
 
         $this->addSql('
@@ -43,10 +41,10 @@ final class Version20260115130815 extends AbstractMigration
 
         $this->addSql('
             INSERT INTO machine_currencies (id, vending_machine_id, denomination_id, amount)
-            VALUES (1, \''.$vendingMachineId.'\', 1, 10),
-                   (2, \''.$vendingMachineId.'\', 2, 10),
-                   (3, \''.$vendingMachineId.'\', 3, 10),
-                   (4, \''.$vendingMachineId.'\', 4, 10)
+            VALUES (1, \'db4463a3-6e45-4bd6-ba32-b2b9cc27c7ac\', 1, 10),
+                   (2, \'db4463a3-6e45-4bd6-ba32-b2b9cc27c7ac\', 2, 10),
+                   (3, \'db4463a3-6e45-4bd6-ba32-b2b9cc27c7ac\', 3, 10),
+                   (4, \'db4463a3-6e45-4bd6-ba32-b2b9cc27c7ac\', 4, 10)
         ');
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\unit\Shared\Domain\ValueObject;
+namespace App\Tests\unit\VendingMachine\Shared\Domain\ValueObject;
 
 use App\Shared\Domain\ValueObject\Money;
 use App\VendingMachine\PaymentSessions\Domain\Exception\InvalidDenominationException;

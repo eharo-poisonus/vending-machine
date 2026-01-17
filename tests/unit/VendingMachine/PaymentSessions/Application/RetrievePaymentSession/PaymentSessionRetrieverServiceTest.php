@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\unit\PaymentSessions\Application\RetrievePaymentSession;
+namespace App\Tests\unit\VendingMachine\PaymentSessions\Application\RetrievePaymentSession;
 
 use App\VendingMachine\PaymentSessions\Application\RetrievePaymentSession\PaymentSessionRetrieverService;
 use App\VendingMachine\PaymentSessions\Domain\Exception\PaymentSessionDoesNotExistException;
@@ -20,8 +20,6 @@ class PaymentSessionRetrieverServiceTest extends KernelTestCase
 
     protected function setUp(): void
     {
-        parent::setUp();
-
         $this->paymentSessionRepository = $this->createMock(PaymentSessionRepository::class);
 
         $this->sut = new PaymentSessionRetrieverService(

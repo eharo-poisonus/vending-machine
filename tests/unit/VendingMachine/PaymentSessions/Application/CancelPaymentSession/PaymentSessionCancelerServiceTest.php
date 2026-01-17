@@ -1,17 +1,13 @@
 <?php
 
-namespace App\Tests\unit\PaymentSessions\Application\CancelPaymentSession;
+namespace App\Tests\unit\VendingMachine\PaymentSessions\Application\CancelPaymentSession;
 
 use App\VendingMachine\PaymentSessions\Application\CancelPaymentSession\PaymentSessionCancelerService;
 use App\VendingMachine\PaymentSessions\Domain\Exception\PaymentSessionDoesNotExistException;
 use App\VendingMachine\PaymentSessions\Domain\PaymentSession;
 use App\VendingMachine\PaymentSessions\Domain\PaymentSessionId;
 use App\VendingMachine\PaymentSessions\Domain\PaymentSessionRepository;
-use App\VendingMachine\VendingMachines\Domain\Exception\VendingMachineDoesNotExistException;
-use App\VendingMachine\VendingMachines\Domain\VendingMachine;
 use App\VendingMachine\VendingMachines\Domain\VendingMachineId;
-use App\VendingMachine\VendingMachines\Domain\VendingMachineRepository;
-use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;

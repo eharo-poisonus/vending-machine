@@ -20,9 +20,8 @@ readonly class PaymentSessionResponse implements Response
     {
         $insertedCurrencies = $paymentSession->insertedCurrencies()
             ->map(fn(PaymentSessionCurrency $currency) =>
-            PaymentSessionCurrencyResponse::fromPaymentSessionCurrencies($currency)
-            )
-            ->toArray();
+                PaymentSessionCurrencyResponse::fromPaymentSessionCurrencies($currency)
+            )->toArray();
 
         return new self(
             $paymentSession->id()->value(),

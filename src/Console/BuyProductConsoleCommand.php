@@ -9,6 +9,8 @@ use App\VendingMachine\PaymentSessions\Application\CancelPaymentSession\CancelPa
 use App\VendingMachine\PaymentSessions\Application\CompletePaymentSession\CompletePaymentSessionCommand;
 use App\VendingMachine\PaymentSessions\Application\RetrievePaymentSession\PaymentSessionCurrencyResponse;
 use App\VendingMachine\PaymentSessions\Application\RetrievePaymentSession\RetrievePaymentSessionQuery;
+use App\VendingMachine\PaymentSessions\Application\RetrievePaymentSessionPurchase\PurchaseResponse;
+use App\VendingMachine\PaymentSessions\Application\RetrievePaymentSessionPurchase\RetrievePaymentSessionPurchaseQuery;
 use Symfony\Component\Console\Attribute\Argument;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -48,13 +50,18 @@ class BuyProductConsoleCommand extends BaseConsoleCommand
                 )
             );
 
-            $changeMoney = $this->queryBus->ask(
-                new RetrievePaymentSessionQuery($sessionId)
+            /** @var PurchaseResponse $purchaseResponse */
+            $purchaseResponse = $this->queryBus->ask(
+                new RetrievePaymentSessionPurchaseQuery(
+                    self::VENDING_MACHINE_ID,
+                    $sessionId,
+                    $productCode
+                )
             );
 
-            $output->writeln($this->changeToString($changeMoney->insertedCurrencies()));
-
             $this->commandBus->dispatch(new CancelPaymentSessionCommand($sessionId));
+
+            $output->writeln($this->formatStringFromResponse($purchaseResponse));
             $this->removePaymentSessionIdFromMemory();
 
             return Command::SUCCESS;
@@ -64,7 +71,7 @@ class BuyProductConsoleCommand extends BaseConsoleCommand
         }
     }
 
-    private function changeToString(array $insertedCoins): string
+    private function formatStringFromResponse(PurchaseResponse $purchaseResponse): string
     {
         $normalizedInsertedCoins = array_merge(
             ...array_map(
@@ -73,9 +80,10 @@ class BuyProductConsoleCommand extends BaseConsoleCommand
                     $currency->amount(),
                     $currency->value()
                 ),
-                $insertedCoins
+                $purchaseResponse->changeCurrencies()
             )
         );
-        return implode(', ', $normalizedInsertedCoins);
+
+        return sprintf('%s, %s', implode(', ', $normalizedInsertedCoins), $purchaseResponse->product());
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\VendingMachine\PaymentSessions\Application\CompletePaymentSession;
 
+use App\Shared\Domain\Exception\NotAllowedCurrencyDenominationException;
 use App\Shared\Domain\ValueObject\Money;
 use App\VendingMachine\PaymentSessions\Domain\Exception\NotEnoughMoneyException;
 use App\VendingMachine\PaymentSessions\Domain\Exception\PaymentSessionDoesNotExistException;
@@ -9,6 +10,8 @@ use App\VendingMachine\PaymentSessions\Domain\PaymentSession;
 use App\VendingMachine\PaymentSessions\Domain\PaymentSessionCurrency;
 use App\VendingMachine\PaymentSessions\Domain\PaymentSessionId;
 use App\VendingMachine\PaymentSessions\Domain\PaymentSessionRepository;
+use App\VendingMachine\VendingMachines\Domain\Exception\NotEnoughChangeException;
+use App\VendingMachine\VendingMachines\Domain\Exception\ProductDoesNotExistException;
 use App\VendingMachine\VendingMachines\Domain\Exception\ProductOutOfStockException;
 use App\VendingMachine\VendingMachines\Domain\Exception\VendingMachineDoesNotExistException;
 use App\VendingMachine\VendingMachines\Domain\MachineChangeCurrency;
@@ -25,6 +28,11 @@ final readonly class PaymentSessionCompleterService
     ) {
     }
 
+    /**
+     * @throws VendingMachineDoesNotExistException|PaymentSessionDoesNotExistException|ProductDoesNotExistException
+     * @throws ProductOutOfStockException|NotAllowedCurrencyDenominationException|NotEnoughChangeException
+     * @throws NotEnoughMoneyException
+     */
     public function __invoke(
         VendingMachineId $vendingMachineId,
         PaymentSessionId $paymentSessionId,

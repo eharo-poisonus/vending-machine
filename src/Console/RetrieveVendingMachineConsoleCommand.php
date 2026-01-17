@@ -58,12 +58,13 @@ class RetrieveVendingMachineConsoleCommand extends BaseConsoleCommand
         foreach ($vendingMachine->products() as $product) {
             $productsTable[] = [
                 $product->id(),
+                $product->name(),
                 $product->code(),
                 $product->price(),
                 $product->stock(),
             ];
         }
-        $io->table(['ID', 'Code', 'Price', 'Stock'], $productsTable);
+        $io->table(['ID', 'Name', 'Code', 'Price', 'Stock'], $productsTable);
 
         $io->section('Stored Money / Change Inventory');
         $moneyTable = [];

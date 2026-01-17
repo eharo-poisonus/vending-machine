@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\unit\VendingMachine\VendingMachines\Application;
+namespace App\Tests\unit\VendingMachine\VendingMachines\Application\RetrieveVendingMachine;
 
 use App\VendingMachine\VendingMachines\Application\RetrieveVendingMachine\VendingMachineRetrieverService;
 use App\VendingMachine\VendingMachines\Domain\Exception\VendingMachineDoesNotExistException;

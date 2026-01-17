@@ -52,7 +52,6 @@ class PaymentSessionCreatorServiceTest extends KernelTestCase
             ->willReturn(
                 new VendingMachine(
                     $vendingMachineId,
-                    true,
                     new ArrayCollection(),
                     new ArrayCollection(),
                     new DateTimeImmutable()
@@ -121,7 +120,6 @@ class PaymentSessionCreatorServiceTest extends KernelTestCase
             ->willReturn(
                 new VendingMachine(
                     $vendingMachineId,
-                    true,
                     new ArrayCollection(),
                     new ArrayCollection(),
                     new DateTimeImmutable()
@@ -160,7 +158,6 @@ class PaymentSessionCreatorServiceTest extends KernelTestCase
             ->willReturn(
                 new VendingMachine(
                     $vendingMachineId,
-                    true,
                     new ArrayCollection(),
                     new ArrayCollection(),
                     new DateTimeImmutable()

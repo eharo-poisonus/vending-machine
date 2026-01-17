@@ -10,7 +10,7 @@ class PaymentSessionCurrency
 
     private int $id;
 
-    private function __construct(
+    public function __construct(
         private PaymentSession $paymentSession,
         private CurrencyDenomination $denomination,
         private int $amount

@@ -11,20 +11,18 @@ readonly class ProductResponse implements Response
         private string $id,
         private string $name,
         private string $code,
-        private int $price,
+        private float $price,
         private int $stock
     ) {
     }
 
     public static function fromProduct(Product $product): self
     {
-        $productPrice = $product->priceInCents() / 100;
-
         return new self(
             $product->id()->value(),
             $product->name(),
             $product->code(),
-            $productPrice,
+            $product->price()->value(),
             $product->stock()
         );
     }
@@ -44,7 +42,7 @@ readonly class ProductResponse implements Response
         return $this->code;
     }
 
-    public function price(): int
+    public function price(): float
     {
         return $this->price;
     }

@@ -2,6 +2,7 @@
 
 namespace App\Tests\unit\VendingMachine\VendingMachines\Domain;
 
+use App\Shared\Domain\ValueObject\Money;
 use App\VendingMachine\VendingMachines\Domain\Exception\ProductStockAddedCanNotBeNegativeException;
 use App\VendingMachine\VendingMachines\Domain\Product;
 use App\VendingMachine\VendingMachines\Domain\ProductId;
@@ -48,7 +49,7 @@ class ProductTest extends KernelTestCase
             ),
             'Test Product',
             'GET-TEST',
-            150,
+            Money::fromCents(150),
             1
         );
     }

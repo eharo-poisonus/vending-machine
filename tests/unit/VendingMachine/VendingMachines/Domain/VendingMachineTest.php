@@ -113,7 +113,7 @@ class VendingMachineTest extends KernelTestCase
                 $vendingMachine,
                 'Test Product',
                 'GET-TEST',
-                200,
+                Money::fromCents(200),
                 0
             ),
             new Product(
@@ -121,7 +121,7 @@ class VendingMachineTest extends KernelTestCase
                 $vendingMachine,
                 'Test Product 2',
                 'GET-TEST-2',
-                100,
+                Money::fromCents(100),
                 10
             )
         ]));

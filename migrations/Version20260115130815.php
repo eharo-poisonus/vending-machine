@@ -26,9 +26,9 @@ final class Version20260115130815 extends AbstractMigration
 
         $this->addSql('
             INSERT INTO products (id, vending_machine_id, name, code, price_in_cents, stock)
-            VALUES (\''.SimpleUuid::random().'\', \'db4463a3-6e45-4bd6-ba32-b2b9cc27c7ac\', \'WATER\', \'GET_WATER\', 65, 5),
-                   (\''.SimpleUuid::random().'\', \'db4463a3-6e45-4bd6-ba32-b2b9cc27c7ac\', \'JUICE\', \'GET_JUICE\', 100, 5),
-                   (\''.SimpleUuid::random().'\', \'db4463a3-6e45-4bd6-ba32-b2b9cc27c7ac\', \'SODA\', \'GET_SODA\', 150, 5)
+            VALUES (\''.SimpleUuid::random().'\', \'db4463a3-6e45-4bd6-ba32-b2b9cc27c7ac\', \'WATER\', \'GET-WATER\', 65, 5),
+                   (\''.SimpleUuid::random().'\', \'db4463a3-6e45-4bd6-ba32-b2b9cc27c7ac\', \'JUICE\', \'GET-JUICE\', 100, 5),
+                   (\''.SimpleUuid::random().'\', \'db4463a3-6e45-4bd6-ba32-b2b9cc27c7ac\', \'SODA\', \'GET-SODA\', 150, 5)
         ');
 
         $this->addSql('

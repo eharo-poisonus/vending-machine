@@ -12,7 +12,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-#[AsCommand(name: 'vending-machine:retrieve')]
+#[AsCommand(name: 'vending-machine:status')]
 class RetrieveVendingMachineConsoleCommand extends BaseConsoleCommand
 {
     public function __construct(

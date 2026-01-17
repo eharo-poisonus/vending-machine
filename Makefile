@@ -69,19 +69,19 @@ test-unit:
 
 ### Vending machine specific commands
 vending-machine-commands:
-	$(PHP_CMD) bin/console list vending-machine
+	@$(PHP_CMD) bin/console list vending-machine
 
-insert-money:
+vending-machine-insert-money:
 	@$(PHP_CMD) bin/console vending-machine:insert-money $(MONEY)
 
-total-balance:
+vending-machine-total-balance:
 	@$(PHP_CMD) bin/console vending-machine:total-balance
 
-return-money:
+vending-machine-return-money:
 	@$(PHP_CMD) bin/console vending-machine:return-money
 
 vending-machine-status:
-	@$(PHP_CMD) bin/console vending-machine:retrieve
+	@$(PHP_CMD) bin/console vending-machine:status
 
 vending-machine-maintenance:
 	@$(PHP_CMD) bin/console vending-machine:maintenance

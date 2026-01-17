@@ -85,3 +85,6 @@ vending-machine-status:
 
 vending-machine-maintenance:
 	@$(PHP_CMD) bin/console vending-machine:maintenance
+
+vending-machine-buy:
+	@$(PHP_CMD) bin/console vending-machine:buy-product $(CODE)

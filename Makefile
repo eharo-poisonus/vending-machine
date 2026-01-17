@@ -82,3 +82,6 @@ return-money:
 
 vending-machine-status:
 	@$(PHP_CMD) bin/console vending-machine:retrieve
+
+vending-machine-maintenance:
+	@$(PHP_CMD) bin/console vending-machine:maintenance

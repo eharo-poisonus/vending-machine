@@ -25,4 +25,10 @@ abstract class BaseConsoleCommand extends Command
 
         return file_get_contents($uuidFile);
     }
+
+    protected function removePaymentSessionIdFromMemory(): void
+    {
+        $uuidFile = __DIR__ . '/../../var/payment_session_uuid.txt';
+        unlink($uuidFile);
+    }
 }

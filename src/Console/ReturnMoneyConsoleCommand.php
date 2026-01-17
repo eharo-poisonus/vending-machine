@@ -9,7 +9,6 @@ use App\VendingMachine\PaymentSessions\Application\CancelPaymentSession\CancelPa
 use App\VendingMachine\PaymentSessions\Application\RetrievePaymentSession\PaymentSessionCurrencyResponse;
 use App\VendingMachine\PaymentSessions\Application\RetrievePaymentSession\PaymentSessionResponse;
 use App\VendingMachine\PaymentSessions\Application\RetrievePaymentSession\RetrievePaymentSessionQuery;
-use App\VendingMachine\PaymentSessions\Domain\PaymentSession;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -30,24 +29,20 @@ class ReturnMoneyConsoleCommand extends BaseConsoleCommand
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         try {
-            /** @var PaymentSessionResponse $paymentSession */
-            $paymentSession = $this->queryBus->ask(
-                new RetrievePaymentSessionQuery(
-                    self::VENDING_MACHINE_ID,
-                    self::PAYMENT_SESSION_ID
-                )
+            $actualPaymentSessionId = $this->retrievePaymentSessionIdFromMemory();
+
+            if (null === $actualPaymentSessionId) {
+                $output->writeln('No payment session found.');
+                return Command::FAILURE;
+            }
+
+            $paymentSession = $this->retrievePaymentSession($actualPaymentSessionId);
+
+            $this->cancelPaymentSession($actualPaymentSessionId);
+
+            $output->writeln(
+                sprintf('Returned coins: %s', $this->insertedCoinsToString($paymentSession->insertedCurrencies()))
             );
-
-            $insertedCoins = $paymentSession->insertedCurrencies();
-
-            $this->commandBus->dispatch(
-                new CancelPaymentSessionCommand(
-                    self::VENDING_MACHINE_ID,
-                    self::PAYMENT_SESSION_ID
-                )
-            );
-
-            $output->writeln(sprintf('Returned coins: %s', $this->insertedCoinsToString($insertedCoins)));
 
             return Command::SUCCESS;
         } catch (DomainException $exception) {
@@ -56,12 +51,34 @@ class ReturnMoneyConsoleCommand extends BaseConsoleCommand
         }
     }
 
+    private function retrievePaymentSession(string $paymentSessionId): PaymentSessionResponse
+    {
+        return $this->queryBus->ask(
+            new RetrievePaymentSessionQuery(
+                $paymentSessionId
+            )
+        );
+    }
+
+    private function cancelPaymentSession(string $paymentSessionId): void
+    {
+        $this->commandBus->dispatch(
+            new CancelPaymentSessionCommand(
+                $paymentSessionId
+            )
+        );
+
+        $this->removePaymentSessionIdFromMemory();
+    }
+
     private function insertedCoinsToString(array $insertedCoins): string
     {
         $normalizedInsertedCoins = array_merge(
             ...array_map(
-                fn (PaymentSessionCurrencyResponse $currency) => array_fill(
-                    0, $currency->amount(), $currency->value()
+                fn(PaymentSessionCurrencyResponse $currency) => array_fill(
+                    0,
+                    $currency->amount(),
+                    $currency->value()
                 ),
                 $insertedCoins
             )

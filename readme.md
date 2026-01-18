@@ -122,3 +122,6 @@ If I had more time or if this were a production-ready project, I would implement
 - I think it's a cool project to practice my skills and I'm happy to share it with you.
 - I enjoyed working and designing the domain and thinking about the architecture.
 
+## Requirements
+- Docker
+- Docker Compose
